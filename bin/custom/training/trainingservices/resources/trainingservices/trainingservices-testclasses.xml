@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testclasses><trainingservices><testclass>de.hybris.training.services.service.impl.DefaultTrainingservicesServiceIntegrationTest</testclass><testclass>de.hybris.training.services.jalo.TrainingservicesTest</testclass></trainingservices></testclasses>
