@@ -5,8 +5,9 @@ package de.hybris.reviews.storefront.controllers.pages;
 
 import de.hybris.platform.acceleratorfacades.futurestock.FutureStockFacade;
 import de.hybris.platform.acceleratorservices.controllers.page.PageType;
-import de.hybris.platform.acceleratorservices.email.EmailService;
 import java.util.List;
+
+import de.hybris.reviews.facades.review.ReviewFacade;
 import org.apache.commons.mail.EmailException;
 import de.hybris.platform.acceleratorstorefrontcommons.breadcrumb.impl.ProductBreadcrumbBuilder;
 import de.hybris.platform.acceleratorstorefrontcommons.constants.WebConstants;
@@ -68,7 +69,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import de.hybris.reviews.services.service.ReviewService;
 import com.google.common.collect.Maps;
 
 
@@ -113,8 +113,8 @@ public class ProductPageController extends AbstractPageController
 	@Resource(name = "userService")
 	private UserService userService;
 
-	@Resource(name = "reviewService")
-	private ReviewService reviewService;
+	@Resource(name = "reviewFacade")
+	private ReviewFacade reviewFacade;
 
 	@RequestMapping(value = PRODUCT_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
 	public String productDetail(@PathVariable("productCode") final String encodedProductCode, final Model model,
@@ -151,7 +151,7 @@ public class ProductPageController extends AbstractPageController
 		model.addAttribute("reviewsData", reviews);
 		UserModel user = userService.getCurrentUser();
 		final ProductModel productModel = productService.getProductForCode(productCode);
-		boolean haveProductInOrder=reviewService.HaveProdcutInOrderEntry(productModel,(CustomerModel) user);
+		boolean haveProductInOrder=reviewFacade.HaveProdcutInOrderEntry(productModel,(CustomerModel) user);
 		/*boolean haveReviewPending=reviewService.HaveReviewsPending(productModel,(CustomerModel) user);*/
 		if (haveProductInOrder) {
 			model.addAttribute("verif", true);
@@ -255,20 +255,28 @@ public class ProductPageController extends AbstractPageController
 		review.setRating(form.getRating());
 		review.setAlias(XSSFilterUtil.filter(form.getAlias()));
 		productFacade.postReview(productCode, review);
+
+
+		String mail =mailContent(review);
+		reviewFacade.SendEmailToCustomer(mail,userService.getCurrentUser().getUid());
+
+
+		GlobalMessages.addFlashMessage(redirectAttrs, GlobalMessages.CONF_MESSAGES_HOLDER, "review.confirmation.thank.you.title");
+		return REDIRECT_PREFIX + productDataUrlResolver.resolve(productData);
+	}
+	protected String mailContent(ReviewData review){
+
 		final StringBuilder mailContentBuilder = new StringBuilder();
 		mailContentBuilder.append("Review Added:\n\n");
-		mailContentBuilder.append("Headline: "+form.getHeadline());
+		mailContentBuilder.append("Headline: "+review.getHeadline());
 		mailContentBuilder.append("\n");
-		mailContentBuilder.append("Comment: "+XSSFilterUtil.filter(form.getComment()));
+		mailContentBuilder.append("Comment: "+review.getComment());
 		mailContentBuilder.append("\n");
-		mailContentBuilder.append("Rating: "+form.getRating());
+		mailContentBuilder.append("Rating: "+review.getRating());
 		mailContentBuilder.append("\n");
 		mailContentBuilder.append("Thank you for your review");
 		mailContentBuilder.append("\n\n");
-		reviewService.SendEmailToCustomer(mailContentBuilder.toString(),userService.getCurrentUser().getUid());
-		GlobalMessages.addFlashMessage(redirectAttrs, GlobalMessages.CONF_MESSAGES_HOLDER, "review.confirmation.thank.you.title");
-
-		return REDIRECT_PREFIX + productDataUrlResolver.resolve(productData);
+		return mailContentBuilder.toString();
 	}
 
 	@RequestMapping(value = PRODUCT_CODE_PATH_VARIABLE_PATTERN + "/reviewhtml/"

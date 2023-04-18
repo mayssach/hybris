@@ -7,6 +7,7 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/responsive/template"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="header" tagdir="/WEB-INF/tags/responsive/common/header"%>
+<%@ taglib prefix="review" tagdir="/WEB-INF/tags/responsive/review"%>
 <%@ taglib prefix="footer" tagdir="/WEB-INF/tags/responsive/common/footer"%>
 <%@ taglib prefix="common" tagdir="/WEB-INF/tags/responsive/common"%>
 <%@ taglib prefix="cart" tagdir="/WEB-INF/tags/responsive/cart" %>
@@ -30,6 +31,7 @@
 				<%--populated by JS acc.navigation--%>
 			</div>
 		</div>
+
 		<main data-currency-iso-code="${fn:escapeXml(currentCurrency.isocode)}">
 			<spring:theme code="text.skipToContent" var="skipToContent" />
 			<a href="#skip-to-content" class="skiptocontent" data-role="none">${fn:escapeXml(skipToContent)}</a>
@@ -48,7 +50,9 @@
 				<common:globalMessages />
 				<cart:cartRestoration />
 				<jsp:doBody />
+
 			</div>
+
 
 			<footer:footer />
 		</main>

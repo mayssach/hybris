@@ -43,7 +43,6 @@
 	        </div>
 	    </div>
 	</div>
-	
 	<div class="footer__bottom">
 	    <div class="footer__copyright">
 	        <div class="container">${fn:escapeXml(notice)}</div>

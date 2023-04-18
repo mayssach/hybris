@@ -1,6 +1,5 @@
 package de.hybris.reviews.services.service.impl;
 
-
 import de.hybris.platform.acceleratorservices.email.EmailService;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.core.model.user.CustomerModel;
@@ -54,19 +53,7 @@ public class DefaultReviewService implements ReviewService {
     @Override
     public Boolean SendEmailToCustomer(String message,String mail) throws EmailException, MessagingException {
 
-        Properties props = new Properties();
-        props.setProperty("mail.smtp.auth", Config.getParameter("mail.smtp.auth").toString());
-        props.setProperty("mail.smtp.starttls.enable",Config.getParameter("mail.smtp.starttls.enable").toString());
-        props.setProperty("mail.smtp.host", Config.getParameter("mail.smtp.host").toString());
-        props.setProperty("mail.smtp.port", Config.getParameter("mail.smtp.port").toString());
-        props.setProperty("mail.smtp.ssl.protocols", Config.getParameter("mail.smtp.ssl.protocols").toString());
-
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(Config.getParameter("mail.smtp.user").toString(), Config.getParameter("mail.smtp.password").toString());
-            }
-        });
-
+        Session session =createSession();
         try {
             // Créer un message de courriel
             MimeMessage email = new MimeMessage(session);
@@ -88,18 +75,20 @@ public class DefaultReviewService implements ReviewService {
     }
 
 
+     public Session createSession(){
+         Properties props = new Properties();
+         props.setProperty("mail.smtp.auth", Config.getParameter("mail.smtp.auth").toString());
+         props.setProperty("mail.smtp.starttls.enable",Config.getParameter("mail.smtp.starttls.enable").toString());
+         props.setProperty("mail.smtp.host", Config.getParameter("mail.smtp.host").toString());
+         props.setProperty("mail.smtp.port", Config.getParameter("mail.smtp.port").toString());
+         props.setProperty("mail.smtp.ssl.protocols", Config.getParameter("mail.smtp.ssl.protocols").toString());
+         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+             protected PasswordAuthentication getPasswordAuthentication() {
+                 return new PasswordAuthentication(Config.getParameter("mail.smtp.user").toString(), Config.getParameter("mail.smtp.password").toString());
+             }
+         });
+
+        return session;
+     }
+
 }
-     /*  EmailMessageModel emailMessage = new EmailMessageModel();
-        EmailAddressModel from = new EmailAddressModel();
-        from.setEmailAddress("reviews.avis123@gmail.com");
-        emailMessage.setFromAddress(from);
-// Créez un objet EmailAddressModel pour le destinataire
-        EmailAddressModel to = new EmailAddressModel();
-        to.setEmailAddress(mail);
-        emailMessage.setToAddresses(Collections.singletonList(to));
-        emailMessage.setSubject("Review added!");
-        emailMessage.setBody(message);
-        emailService.send(emailMessage);
-        System.out.println("message envoyée");
-        return true;*/
-/* }*/

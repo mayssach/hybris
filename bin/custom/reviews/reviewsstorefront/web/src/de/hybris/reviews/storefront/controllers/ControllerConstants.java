@@ -16,6 +16,7 @@ import de.hybris.platform.acceleratorcms.model.components.SimpleResponsiveBanner
 import de.hybris.platform.acceleratorcms.model.components.SubCategoryListComponentModel;
 import de.hybris.platform.cms2.model.contents.components.CMSLinkComponentModel;
 import de.hybris.platform.cms2lib.model.components.ProductCarouselComponentModel;
+import de.hybris.reviews.core.model.ReviewCarouselComponentModel;
 
 
 /**
@@ -46,6 +47,9 @@ public interface ControllerConstants
 			String CartSuggestionComponent = _Prefix + CartSuggestionComponentModel._TYPECODE + _Suffix; // NOSONAR
 			String ProductReferencesComponent = _Prefix + ProductReferencesComponentModel._TYPECODE + _Suffix; // NOSONAR
 			String ProductCarouselComponent = _Prefix + ProductCarouselComponentModel._TYPECODE + _Suffix; // NOSONAR
+			String ReviewCarouselComponent = _Prefix + ReviewCarouselComponentModel._TYPECODE + _Suffix; // NOSONAR
+
+
 			String MiniCartComponent = _Prefix + MiniCartComponentModel._TYPECODE + _Suffix; // NOSONAR
 			String ProductFeatureComponent = _Prefix + ProductFeatureComponentModel._TYPECODE + _Suffix; // NOSONAR
 			String CategoryFeatureComponent = _Prefix + CategoryFeatureComponentModel._TYPECODE + _Suffix; // NOSONAR
@@ -70,6 +74,7 @@ public interface ControllerConstants
 
 		interface Pages
 		{
+
 			interface Account // NOSONAR
 			{
 				String AccountLoginPage = "pages/account/accountLoginPage"; // NOSONAR
@@ -161,6 +166,11 @@ public interface ControllerConstants
 
 		interface Fragments
 		{
+			interface Review // NOSONAR
+			{
+				String WriteSiteReview = "fragments/review/writeReview"; // NOSONAR
+				String SiteReviewsTab = "fragments/review/siteReviewsTab"; // NOSONAR
+			}
 			interface Cart // NOSONAR
 			{
 				String AddToCartPopup = "fragments/cart/addToCartPopup"; // NOSONAR

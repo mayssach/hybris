@@ -15,6 +15,7 @@
                 		
         
         <requires-extension name="solrserver"/>
+        <requires-extension name="customerreview"/>
                 		
         
         <coremodule generated="true" manager="de.hybris.reviews.core.jalo.ReviewsCoreManager" packageroot="de.hybris.reviews.core"/>

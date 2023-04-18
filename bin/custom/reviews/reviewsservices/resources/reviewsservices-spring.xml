@@ -89,7 +89,32 @@
         <property name="emailService" ref="emailService"/>
     </bean>
 
-    <alias alias="reviewDao" name="defaultReviewDao"/>
-    <bean id="defaultReviewDao" class="de.hybris.reviews.core.dao.impl.DefaultReviewDao" parent="abstractItemDao"/>
+    <alias alias="moderationRuleService" name="defaultModerationRuleService"/>
+    <bean id="defaultModerationRuleService" class="de.hybris.reviews.services.service.impl.DefaultModerationRuleService">
+        <property name="moderationRuleDao" ref="moderationRuleDao"/>
+    </bean>
+
+
+    <alias alias="customerReviewService" name="defaultCustomerReviewService1"/>
+    <bean id="defaultCustomerReviewService1" class="de.hybris.reviews.services.service.impl.DefaultCustomerReviewService1" parent="defaultCustomerReviewService">
+        <property name="customerReviewDao" ref="customerReviewDao"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias alias="siteReviewService" name="defaultSiteReviewService"/>
+    <bean id="defaultSiteReviewService" class="de.hybris.reviews.services.service.impl.DefaultSiteReviewService" >
+        <property name="modelService" ref="modelService"/>
+        <property name="siteReviewDao" ref="siteReviewDao"/>
+    </bean>
+
+    <alias alias="storeReviewService" name="defaultStoreReviewService"/>
+    <bean id="defaultStoreReviewService" class="de.hybris.reviews.services.service.impl.DefaultStoreReviewService" >
+        <property name="modelService" ref="modelService"/>
+        <property name="storeReviewDao" ref="storeReviewDao"/>
+    </bean>
+
+    <alias name="defaultReviewCarouselRendererService" alias="reviewCarouselRendererService"/>
+    <bean id="defaultReviewCarouselRendererService" class="de.hybris.reviews.services.service.impl.DefaultReviewCarouselRendererService"/>
+
 
 </beans>

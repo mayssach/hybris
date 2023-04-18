@@ -6,10 +6,10 @@
 	ATTENTION: This is just an example file. You have to edit it according to your needs.
 -->
 
-<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			xsi:noNamespaceSchemaLocation="items.xsd">
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:noNamespaceSchemaLocation="items.xsd">
 
-	<itemtypes>
+
 <!--
 		<itemtype generate="true"
 		   code="MyProduct"
@@ -35,6 +35,61 @@
 
 			</attributes>
 		</itemtype>
+
 -->
-	</itemtypes>
+
+	<!--<enumtypes>
+			<enumtype code="moderationRuleType" autocreate="true" generate="true" dynamic="false">
+				<value code="FLEXIBLE"/>
+				<value code="STRICT"/>
+			</enumtype>
+			<enumtype code="moderatRulecomparator" autocreate="true" generate="true" dynamic="false">
+				<value code="AND"/>
+				<value code="OR"/>
+			</enumtype>
+	</enumtypes>
+	<relations>
+		<relation code="ModeratRule2Word" autocreate="true" generate="false" localized="false">
+			<deployment table="ModeratRule2Word" typecode="30268" />
+			<sourceElement qualifier="moderationRules" type="ModerationRule" collectiontype="set" cardinality="many" ordered="false">
+				<modifiers read="true" write="true" search="true" optional="false" />
+			</sourceElement>
+			<targetElement qualifier="words" type="ModerationWord" cardinality="many">
+				<modifiers read="true" write="true" search="true" optional="false" />
+			</targetElement>
+		</relation>
+		<relation localized="false" code="ReviewToModerRuleRel" generate="true" autocreate="true">
+			<sourceElement type="moderationRule" qualifier="moderationRule" cardinality="one">
+				<modifiers optional="false"/>
+			</sourceElement>
+			<targetElement type="CustomerReview" qualifier="customerReviews" cardinality="many">
+				<modifiers write="false" initial="true" />
+			</targetElement>
+		</relation>
+	</relations>
+	<itemtypes>
+		<itemtype code="ModerationWord" autocreate="true" generate="true"  jaloclass="com.hybris.backoffice.jalo.ModerationWord">
+			<deployment table="ModerationWord" typecode="20014" />
+			<attributes>
+				<attribute qualifier="value" type="java.lang.String">
+					<persistence type="property" />
+					<description>valeur du mot à vérifier</description>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="ModerationRule" autocreate="true" generate="true" jaloclass="com.hybris.backoffice.jalo.ModerationRule">
+			<deployment table="ModerationRule" typecode="20015" />
+			<attributes>
+				<attribute qualifier="type" type="moderationRuleType">
+					<persistence type="property" />
+					<description>Type de la règle : souple/stricte</description>
+				</attribute>
+				<attribute qualifier="comparator" type="moderatRulecomparator">
+					<persistence type="property" />
+					<description>Comparateur : et/ou</description>
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>-->
 </items>

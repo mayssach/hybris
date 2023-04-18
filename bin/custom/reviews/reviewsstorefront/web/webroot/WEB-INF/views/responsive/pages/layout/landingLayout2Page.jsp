@@ -23,6 +23,7 @@
                 <cms:component component="${feature}" element="div" class="yComponentWrapper"/>
             </cms:pageSlot>
         </div>
+
     </div>
 
     <cms:pageSlot position="Section3" var="feature" element="div" class="row no-margin" >

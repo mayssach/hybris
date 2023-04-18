@@ -47,19 +47,17 @@
 		<div class="carousel__component--carousel js-owl-carousel js-owl-lazy-reference js-owl-carousel-reference">
 
 			<c:forEach items="${reviewsData}" var="review">
-				<div class="carousel__item reviewsCarousel" >
+				<div class="carousel__item reviewsCarousel" style="height: 260px;">
 					<div class="carousel__item--name">
-						<div class="review-entry">
-							<div class="name"><spring:theme code="reviews.customer"/>&nbsp;${fn:escapeXml(review.principal.name)}</div>
-						</div>
+							<div class="name">${fn:escapeXml(review.principal.name)}</div>
 					</div>
 					<div class="carousel__item--name">
-							<div class="title"><spring:theme code="reviews.title"/>&nbsp;${fn:escapeXml(review.headline)}</div>
+							<div class="name"><spring:theme code="reviews.title"/>&nbsp;${fn:escapeXml(review.headline)}</div>
 					</div>
 
-					<div class="carousel__item--name" >
-						<spring:theme code="reviews.rating"/>&nbsp;${review.rating}
-						<div class="rating" style="margin-left: 30%;">
+					<div class="carousel__item--name">
+						<div class="rating-number" >${review.rating}/5.0</div>
+						<div class="rating rating-review">
 
 							<div class="rating-stars pull-left js-ratingCalc " data-rating='{"rating":"${ycommerce:encodeJSON(review.rating)}","total":5}' >
 								<div class="greyStars">
@@ -75,11 +73,21 @@
 							</div>
 						</div>
 					</div>
-					<div class="carousel__item--name"><div class="content commentContent"><spring:theme code="reviews.comment"/>&nbsp;${fn:escapeXml(review.comment)}</div></div>
+					<div class="carousel__item--name">
+						<div class="commentContent">
+							<div class="limited-height">
+								<p><spring:theme code="reviews.comment"/>&nbsp;${fn:escapeXml(review.comment)}</p>
+							</div>
+						<%--	<button class="show-more js-show-more">...</button>--%>
+						</div>
+
+					</div>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
 
 </div>
+<script>
 
+</script>

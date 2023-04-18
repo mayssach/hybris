@@ -10714,6 +10714,16 @@ fieldset[disabled] .btn-primary.active {
   text-align: right;
   font-weight: bold;
 }
+
+.reviewsCarousel{
+  border-style: groove;
+  border-color: #0f738499;
+  block-size: 850px;
+}
+.name{
+  font-weight: bold;
+  font-size: 14px;
+}
 .owl-carousel {
   display: none;
   position: relative;
@@ -10873,13 +10883,7 @@ fieldset[disabled] .btn-primary.active {
   display: block;
   margin: 0 10px;
   padding: 10px 0;
-  height: 427px;
 
-}
-.reviewsCarousel{
-  border-style: groove;
-  border-color: #4bbbb629;
-  block-size: 850px;
 }
 .carousel .item .thumb,
 .carousel__component--carousel .item .thumb,
@@ -10943,7 +10947,7 @@ fieldset[disabled] .btn-primary.active {
   /* height: 2.4em;*/
   font-weight: 600;
   font-size: 12px;
-  color: #154259;
+  color: black;
 }
 .carousel .item .item__name:before,
 .carousel__component--carousel .item .item__name:before,
@@ -10958,9 +10962,6 @@ fieldset[disabled] .btn-primary.active {
   position: absolute;
   right: 0;
   /*content: "…";*/
-}
-.commentContent{
-  content: "…";
 }
 .carousel .item .item__name:after,
 .carousel__component--carousel .item .item__name:after,
@@ -11039,6 +11040,20 @@ fieldset[disabled] .btn-primary.active {
   margin-top: 0;
   border-top: 4px solid #f2f2f2;
   padding-top: 30px;
+}
+.commentContent {
+  position: relative;
+}
+.limited-height {
+  max-height: 100px;
+  overflow: hidden;
+}
+.rating-number{
+  color: #990000;
+}
+.rating-review{
+  margin-left: 20%;
+  font-size: 20px;
 }
 .rotating-image-componet:before,
 .rotating-image-componet:after {
@@ -11385,7 +11400,6 @@ fieldset[disabled] .btn-primary.active {
   padding-right: 30px;
   background-color: #f2f2f2;
 }
-
 @media (max-width: 1024px) {
   .tabs .tabbody {
     padding-left: 20px;

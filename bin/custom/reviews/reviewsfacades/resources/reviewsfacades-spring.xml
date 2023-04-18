@@ -183,5 +183,59 @@
 
 	<bean id="genderData" class="de.hybris.reviews.facades.product.data.GenderData" scope="prototype"/>
 
-	
+
+	<alias name="defaultReviewFacade" alias="reviewFacade"/>
+	<bean id="defaultReviewFacade" class="de.hybris.reviews.facades.review.impl.DefaultReviewFacade" >
+		<property name="reviewService" ref="reviewService"/>
+		<property name="moderationRuleService" ref="moderationRuleService" />
+		<property name="userService" ref="userService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="commonI18NService" ref="commonI18NService"/>
+		<property name="siteReviewConverter" ref="siteReviewConverter"/>
+		<property name="siteReviewService" ref="siteReviewService"/>
+		<property name="pointOfServiceService" ref="pointOfServiceService"/>
+		<property name="storeReviewService" ref="storeReviewService"/>
+
+	</bean>
+
+
+
+	<bean id="moderationRuleJob" class="de.hybris.reviews.facades.cronjob.ModerationRuleJob" parent="abstractJobPerformable">
+		<property name="moderationRuleService" ref="moderationRuleService"/>
+		<property name="customerReviewService1" ref="customerReviewService"/>
+	</bean>
+
+	<alias name="defaultSiteReviewConverter" alias="siteReviewConverter"/>
+	<bean id="defaultSiteReviewConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.product.data.ReviewData"/>
+		<property name="populators">
+			<list>
+				<ref bean="siteReviewPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultStoreReviewConverter" alias="storeReviewConverter"/>
+	<bean id="defaultStoreReviewConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.product.data.ReviewData"/>
+		<property name="populators">
+			<list>
+				<ref bean="storeReviewPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultSiteReviewPopulator" alias="siteReviewPopulator"/>
+	<bean id="defaultSiteReviewPopulator"
+		  class="de.hybris.reviews.facades.populators.SiteReviewPopulator">
+		<property name="principalConverter" ref="principalConverter"/>
+	</bean>
+
+	<alias name="defaultStoreReviewPopulator" alias="storeReviewPopulator"/>
+	<bean id="defaultStoreReviewPopulator"
+		  class="de.hybris.reviews.facades.populators.StoreReviewPopulator">
+		<property name="principalConverter" ref="principalConverter"/>
+	</bean>
+
 </beans>
