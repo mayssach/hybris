@@ -7,7 +7,10 @@
 	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
 		<property name="genders" type="java.util.List&lt;de.hybris.reviews.facades.product.data.GenderData>"/>
 	</bean>
-
+<bean class="de.hybris.platform.commercefacades.storelocator.data.PointOfServiceData">
+	<property name="averageRating" type="Double"/>
+	<property name="numberOfReviews" type="Integer"/>
+</bean>
 	<bean class="de.hybris.reviews.facades.product.data.GenderData">
 		<property name="code" type="String"/>
 		<property name="name" type="String"/>

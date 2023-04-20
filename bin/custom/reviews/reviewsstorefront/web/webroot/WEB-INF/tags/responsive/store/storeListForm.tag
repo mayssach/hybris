@@ -11,9 +11,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="nav" tagdir="/WEB-INF/tags/responsive/nav" %>
 <%@ taglib prefix="action" tagdir="/WEB-INF/tags/responsive/action" %>
-
+<%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format" %>
+<%@ taglib prefix="component" tagdir="/WEB-INF/tags/shared/component" %>
+<%@ taglib prefix="formElement" tagdir="/WEB-INF/tags/responsive/formElement"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <spring:htmlEscape defaultHtmlEscape="true" />
-
+<c:url value="${store.url}" var="storeReviewActionUrl"/>
 <c:url value="/store-finder" var="storeFinderFormAction" />
 
 <div class="store__finder js-store-finder" data-url="${storeFinderFormAction}">
@@ -50,16 +54,22 @@
                                 <spring:theme code="pickup.in.store.back.to.results" text="Back"></spring:theme>
                             </button>
                         </div>
+
+
+
                         <div class="store__finder--details-image js-store-image"></div>
                         <div class="store__finder--details-info">
-                            <div class="info__name js-store-name"></div>
+                            <div class="info__name js-store-name"  name="storeName">
+                            </div>
                             <div class="info__address">
                                 <div class="js-store-line1"></div>
                                 <div class="js-store-line2"></div>
                                 <div class="js-store-town"></div>
                             </div>
                         </div>
-
+                        <c:set var="storeName" value="${pageContext.request.getAttribute('storeName')}" />
+                        <c:url value="/store/Nakano" var="store"/>
+                        <a href="${fn:escapeXml(store)}">${storeName}</a>
                         <hr>
                         <div class="store__finder--map js-store-finder-map"></div>
                         <hr>
@@ -71,6 +81,8 @@
                         </div>
                     </div>
                 </div>
+
+
 
                 <div class="store__finder--pagination">
                     <div class="pull-right">
@@ -88,7 +100,7 @@
                     <spring:theme code="storeFinder.pagination.stores" text="stores found"></spring:theme>
                 </div>
             </div>
-
         </ycommerce:testId>
     </div>
+
 </div>

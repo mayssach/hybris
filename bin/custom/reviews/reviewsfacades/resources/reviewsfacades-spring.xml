@@ -196,6 +196,7 @@
 		<property name="siteReviewService" ref="siteReviewService"/>
 		<property name="pointOfServiceService" ref="pointOfServiceService"/>
 		<property name="storeReviewService" ref="storeReviewService"/>
+		<property name="storeReviewConverter" ref="storeReviewConverter"/>
 
 	</bean>
 
@@ -236,6 +237,11 @@
 	<bean id="defaultStoreReviewPopulator"
 		  class="de.hybris.reviews.facades.populators.StoreReviewPopulator">
 		<property name="principalConverter" ref="principalConverter"/>
+	</bean>
+
+	<alias name="defaultPointOfServicePopulator1" alias="pointOfServicePopulator"/>
+	<bean id="defaultPointOfServicePopulator1"
+		  class="de.hybris.reviews.facades.populators.PointOfServicePopulator1" parent="defaultPointOfServicePopulator">
 	</bean>
 
 </beans>

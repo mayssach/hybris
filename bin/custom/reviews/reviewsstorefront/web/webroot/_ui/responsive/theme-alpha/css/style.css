@@ -10719,10 +10719,14 @@ fieldset[disabled] .btn-primary.active {
   border-style: groove;
   border-color: #0f738499;
   block-size: 850px;
+  height: 260px;
 }
 .name{
   font-weight: bold;
   font-size: 14px;
+}
+.rating-carousel{
+  margin-left: 44%;
 }
 .owl-carousel {
   display: none;

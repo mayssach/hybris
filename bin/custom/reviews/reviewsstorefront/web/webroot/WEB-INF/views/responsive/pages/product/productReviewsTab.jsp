@@ -29,7 +29,7 @@
 			<br>
 			Rating avarage:&nbsp;${ratingJson}/5.0
 			<br>
-			<div class="rating" style="margin-left: 44%;">
+			<div class="rating rating-carousel" >
 				<div class="rating-stars pull-left js-ratingCalc ${fn:escapeXml(starsClass)}" data-rating='{"rating":"${fn:escapeXml(ratingJson)}","total":5}' >
 					<div class="greyStars">
 						<c:forEach  begin="1" end="5">
@@ -47,7 +47,7 @@
 		<div class="carousel__component--carousel js-owl-carousel js-owl-lazy-reference js-owl-carousel-reference">
 
 			<c:forEach items="${reviewsData}" var="review">
-				<div class="carousel__item reviewsCarousel" style="height: 260px;">
+				<div class="carousel__item reviewsCarousel" >
 					<div class="carousel__item--name">
 							<div class="name">${fn:escapeXml(review.principal.name)}</div>
 					</div>
@@ -88,6 +88,3 @@
 	</div>
 
 </div>
-<script>
-
-</script>

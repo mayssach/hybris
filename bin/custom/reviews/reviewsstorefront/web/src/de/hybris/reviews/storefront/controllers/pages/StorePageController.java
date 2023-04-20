@@ -7,28 +7,39 @@ import de.hybris.platform.acceleratorstorefrontcommons.breadcrumb.impl.StoreBrea
 import de.hybris.platform.acceleratorstorefrontcommons.constants.WebConstants;
 import de.hybris.platform.acceleratorstorefrontcommons.controllers.pages.AbstractPageController;
 import de.hybris.platform.acceleratorstorefrontcommons.controllers.util.GlobalMessages;
+import de.hybris.platform.acceleratorstorefrontcommons.forms.ReviewForm;
 import de.hybris.platform.acceleratorstorefrontcommons.forms.StoreFinderForm;
 import de.hybris.platform.acceleratorstorefrontcommons.forms.StorePositionForm;
+import de.hybris.platform.acceleratorstorefrontcommons.forms.validation.ReviewValidator;
 import de.hybris.platform.acceleratorstorefrontcommons.util.MetaSanitizerUtil;
+import de.hybris.platform.acceleratorstorefrontcommons.util.XSSFilterUtil;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
 import de.hybris.platform.cms2.model.pages.AbstractPageModel;
+import de.hybris.platform.commercefacades.product.data.ReviewData;
 import de.hybris.platform.commercefacades.storefinder.StoreFinderFacade;
 import de.hybris.platform.commercefacades.storelocator.data.PointOfServiceData;
+import de.hybris.platform.commercefacades.storelocator.data.WeekdayOpeningDayData;
 import de.hybris.platform.commercefacades.user.data.AddressData;
 import de.hybris.platform.commerceservices.store.data.GeoPoint;
 import de.hybris.platform.servicelayer.config.ConfigurationService;
 import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
+import de.hybris.platform.servicelayer.user.UserService;
+import de.hybris.reviews.facades.review.ReviewFacade;
 import de.hybris.reviews.storefront.controllers.ControllerConstants;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,8 +64,9 @@ public class StorePageController extends AbstractPageController
 	 */
 	private static final String STORE_CODE_PATH_VARIABLE_PATTERN = "/{storeCode:.*}";
 	private static final String REDIRECT_STORE_FINDER = REDIRECT_PREFIX + "/store-finder";
-	
 	private static final String STORE_URL = "/store/";
+	private static final String REDIRECT_STORE = REDIRECT_PREFIX + STORE_URL;
+
 	private static final String STORE_ATTR = "store";
 
 	private static final String STORE_FINDER_CMS_PAGE_LABEL = "storefinder";
@@ -69,6 +81,38 @@ public class StorePageController extends AbstractPageController
 
 	@Resource(name = "storeFinderFacade")
 	private StoreFinderFacade storeFinderFacade;
+	@Resource(name = "reviewFacade")
+	private ReviewFacade reviewFacade;
+
+	@Resource(name = "reviewValidator")
+	private ReviewValidator reviewValidator;
+
+	@Resource(name = "userService")
+	private UserService userService;
+
+
+
+	public ReviewValidator getReviewValidator() {
+		return reviewValidator;
+	}
+	public void setReviewValidator(ReviewValidator reviewValidator) {
+		this.reviewValidator = reviewValidator;
+	}
+	public UserService getUserService() {
+		return userService;
+	}
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public ReviewFacade getReviewFacade() {
+		return reviewFacade;
+	}
+
+	public void setReviewFacade(ReviewFacade reviewFacade) {
+		this.reviewFacade = reviewFacade;
+	}
+
 
 	@ModelAttribute("googleApiVersion")
 	public String getGoogleApiVersion()
@@ -94,10 +138,12 @@ public class StorePageController extends AbstractPageController
 			@RequestParam(value = "q", required = false) final String locationQuery, final Model model,
 			final RedirectAttributes redirectModel) throws CMSItemNotFoundException
 	{
+
 		final StoreFinderForm storeFinderForm = new StoreFinderForm();
 		model.addAttribute("storeFinderForm", storeFinderForm);
 		final StorePositionForm storePositionForm = new StorePositionForm();
 		model.addAttribute("storePositionForm", storePositionForm);
+		model.addAttribute("storereviewForm",new ReviewForm());
 
 		if (sourceLatitude != null && sourceLongitude != null)
 		{
@@ -110,6 +156,14 @@ public class StorePageController extends AbstractPageController
 			{
 				final PointOfServiceData pointOfServiceData = storeFinderFacade.getPointOfServiceForNameAndPosition(storeCode,
 						geoPoint);
+				final List<WeekdayOpeningDayData> openingHours=pointOfServiceData.getOpeningHours().getWeekDayOpeningList();
+				final AddressData adress=pointOfServiceData.getAddress();
+				model.addAttribute("openingHours",openingHours);
+				model.addAttribute("features",pointOfServiceData.getFeatures());
+				model.addAttribute("adressStoreData",adress);
+				final List<ReviewData> reviews = reviewFacade.getStoreReviews(storeCode);
+				model.addAttribute("storeReviews",reviews);
+
 				if (pointOfServiceData == null)
 				{
 					return handleStoreNotFoundCase(redirectModel);
@@ -136,6 +190,13 @@ public class StorePageController extends AbstractPageController
 			try
 			{
 				final PointOfServiceData pointOfServiceData = storeFinderFacade.getPointOfServiceForName(storeCode);
+				final List<WeekdayOpeningDayData> openingHours=pointOfServiceData.getOpeningHours().getWeekDayOpeningList();
+				final AddressData adress=pointOfServiceData.getAddress();
+				model.addAttribute("openingHours",openingHours);
+				model.addAttribute("features",pointOfServiceData.getFeatures());
+				model.addAttribute("adressStoreData",adress);
+				final List<ReviewData> reviews = reviewFacade.getStoreReviews(storeCode);
+				model.addAttribute("storeReviews",reviews);
 				pointOfServiceData.setUrl(STORE_URL + pointOfServiceData.getName());
 				model.addAttribute(STORE_ATTR, pointOfServiceData);
 				model.addAttribute(WebConstants.BREADCRUMBS_KEY, storeBreadcrumbBuilder.getBreadcrumbs(pointOfServiceData));
@@ -233,5 +294,49 @@ public class StorePageController extends AbstractPageController
 
 		final String[] keywords = { address.getTown(), address.getPostalCode(), address.getCountry().getName() };
 		return StringUtils.join(keywords, ',');
+	}
+
+	@RequestMapping(value = STORE_CODE_PATH_VARIABLE_PATTERN ,method=RequestMethod.POST)
+	public String postReview(@PathVariable("storeCode") final String storeCode,final ReviewForm form, final BindingResult result, final Model model,
+							 final HttpServletRequest request, final RedirectAttributes redirectAttrs)
+			throws EmailException, MessagingException {
+
+
+		getReviewValidator().validate(form, result);
+		if (result.hasErrors())
+		{
+			GlobalMessages.addErrorMessage(model, "review.general.error");
+			model.addAttribute("showReviewForm", Boolean.TRUE);
+			//return getViewForPage(model);
+
+		}
+
+		final ReviewData review = new ReviewData();
+		review.setHeadline(XSSFilterUtil.filter(form.getHeadline()));
+		review.setComment(XSSFilterUtil.filter(form.getComment()));
+		review.setRating(form.getRating());
+		review.setAlias(XSSFilterUtil.filter(form.getAlias()));
+		getReviewFacade().postStoreReview(storeCode, review);
+		if(!getUserService().getCurrentUser().getName().equals("Anonymous"))
+		{
+			String mail =mailContent(review);
+			reviewFacade.SendEmailToCustomer(mail,userService.getCurrentUser().getUid());
+		}
+		GlobalMessages.addFlashMessage(redirectAttrs, GlobalMessages.CONF_MESSAGES_HOLDER, "review.confirmation.thank.you.title");
+		return REDIRECT_STORE + storeCode;
+	}
+	protected String mailContent(ReviewData review){
+
+		final StringBuilder mailContentBuilder = new StringBuilder();
+		mailContentBuilder.append("Review Added:\n\n");
+		mailContentBuilder.append("Headline: "+review.getHeadline());
+		mailContentBuilder.append("\n");
+		mailContentBuilder.append("Comment: "+review.getComment());
+		mailContentBuilder.append("\n");
+		mailContentBuilder.append("Rating: "+review.getRating());
+		mailContentBuilder.append("\n");
+		mailContentBuilder.append("Thank you for your review");
+		mailContentBuilder.append("\n\n");
+		return mailContentBuilder.toString();
 	}
 }

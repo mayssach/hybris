@@ -5,7 +5,7 @@
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 <%@ taglib prefix="store" tagdir="/WEB-INF/tags/responsive/store" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%--<p>hello page ${pageTitle}</p>--%>
 <c:if test="${searchPageData ne null and !empty searchPageData.results}">
 	{"total":${ycommerce:encodeJSON(searchPageData.pagination.totalNumberOfResults)},"data":[
 	<c:forEach items="${searchPageData.results}" var="pos" varStatus="loopStatus">
@@ -43,7 +43,7 @@
 <c:if test="${empty searchPageData.results}">
 
 <template:page pageTitle="${pageTitle}">
-		
+
 		<cms:pageSlot position="TopContent" var="feature">
 			<cms:component component="${feature}"  element="div" class="top-content-slot cms_disp-img_slot"  />
 		</cms:pageSlot>
