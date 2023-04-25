@@ -553,4 +553,12 @@
 
 	<alias alias="storeReviewDao" name="defaultStoreReviewDao"/>
 	<bean id="defaultStoreReviewDao" class="de.hybris.reviews.core.dao.impl.DefaultStoreReviewDao" parent="abstractItemDao"/>
+
+	<bean id="avgRatingFacetValueProvider" class="de.hybris.reviews.core.search.solrfacetsearch.provider.impl.AvgRatingFacetValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="customerReviewService" ref="customerReviewService" />
+	</bean>
+
+
 </beans>

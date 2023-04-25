@@ -201,7 +201,6 @@
 	</bean>
 
 
-
 	<bean id="moderationRuleJob" class="de.hybris.reviews.facades.cronjob.ModerationRuleJob" parent="abstractJobPerformable">
 		<property name="moderationRuleService" ref="moderationRuleService"/>
 		<property name="customerReviewService1" ref="customerReviewService"/>
@@ -244,4 +243,25 @@
 		  class="de.hybris.reviews.facades.populators.PointOfServicePopulator1" parent="defaultPointOfServicePopulator">
 	</bean>
 
+	<alias name="defaultProductPopulator1" alias="productBasicPopulator"/>
+	<bean id="defaultProductPopulator1"
+		  class="de.hybris.reviews.facades.populators.ProductPopulator1" parent="defaultProductBasicPopulator">
+	</bean>
+
+	<alias name="defaultSearchResultProductPopulator1" alias="commerceSearchResultProductPopulator"/>
+	<bean id="defaultSearchResultProductPopulator1"
+		  class="de.hybris.reviews.facades.populators.SearchResultProductPopulator1" parent="defaultCommerceSearchResultProductPopulator">
+	</bean>
+
+
+	<bean id="exportReviewsJob" class="de.hybris.reviews.facades.cronjob.ExportReviewsJob" parent="abstractJobPerformable">
+		<property name="productService" ref="productService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="storeReviewService" ref="storeReviewService"/>
+		<property name="pointOfServiceService1" ref="pointOfServiceService"/>
+		<property name="catalogService" ref="catalogService"/>
+		<property name="customerReviewService" ref="customerReviewService"/>
+		<property name="siteReviewService" ref="siteReviewService"/>
+
+	</bean>
 </beans>

@@ -117,4 +117,9 @@
     <bean id="defaultReviewCarouselRendererService" class="de.hybris.reviews.services.service.impl.DefaultReviewCarouselRendererService"/>
 
 
+    <alias alias="pointOfServiceService" name="defaultPointOfServiceService1"/>
+    <bean id="defaultPointOfServiceService1" class="de.hybris.reviews.services.service.impl.DefaultPointOfServiceService1" parent="defaultPointOfServiceService" >
+        <property name="pointOfServiceDao" ref="pointOfServiceDao"/>
+    </bean>
+
 </beans>

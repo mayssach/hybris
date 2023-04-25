@@ -76,12 +76,10 @@ ACC.storefinder = {
 		
 		$(document).on("click",".js-store-finder-details-back",function(e){
 			e.preventDefault();
-			
+
 			$(".js-store-finder").removeClass("show-store");
 			
 		})
-		
-
 
 
 		$(document).on("click",".js-store-finder-pager-prev",function(e){
@@ -117,6 +115,7 @@ ACC.storefinder = {
 
 	bindStoreChange:function()
 	{
+
 		$(document).on("change",".js-store-finder-input",function(e){
 			e.preventDefault();
 

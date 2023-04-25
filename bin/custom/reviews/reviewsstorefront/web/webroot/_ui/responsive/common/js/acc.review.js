@@ -5,7 +5,10 @@ ACC.productReview = {
     ],
 
     bindProductReview: function () {
-
+        $(document).on("click",".js-store-details",function(e){
+            var maValeur = document.getElementById("storeName").innerHTML;
+            window.location.href=ACC.config.encodedContextPath + '/store/' +maValeur ;
+        })
         $(document).on("click", ".js-add-review", function (e) {
             e.preventDefault();
             var title = $(this).data("title");

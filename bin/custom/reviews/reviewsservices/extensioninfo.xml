@@ -20,8 +20,8 @@
 
 
                 <requires-extension name="acceleratorcms"/>
-
-      
+                <requires-extension name="basecommerce"/>
+                <requires-extension name="customerreview"/>
         
         <coremodule generated="true" manager="de.hybris.reviews.services.jalo.ReviewsservicesManager" packageroot="de.hybris.reviews.services"/>
                       

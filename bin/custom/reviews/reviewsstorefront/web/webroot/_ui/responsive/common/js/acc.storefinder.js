@@ -76,12 +76,10 @@ ACC.storefinder = {
 		
 		$(document).on("click",".js-store-finder-details-back",function(e){
 			e.preventDefault();
-			
+
 			$(".js-store-finder").removeClass("show-store");
 			
 		})
-		
-
 
 
 		$(document).on("click",".js-store-finder-pager-prev",function(e){
@@ -139,18 +137,6 @@ ACC.storefinder = {
 					}
 				}else if(key=="productcode"){
 					$ele.find(".js-store-productcode").val(value);
-					$.ajax({
-						type: 'POST',
-						url: '/store-finder',
-						data: {storeName: $ele.find(".js-store-productcode").val(value)},
-						success: function(response) {
-							console.log(response);
-						},
-						error: function(xhr, status, error) {
-							console.log(error);
-						}
-					});
-
 				}
 				else if(key=="openings"){
 					var $oele = $ele.find(".js-store-"+key);
