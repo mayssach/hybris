@@ -59,7 +59,7 @@
 
                         <div class="store__finder--details-image js-store-image"></div>
                         <div class="store__finder--details-info">
-                            <div class="info__name js-store-name"  name="storeName">
+                            <div class="info__name js-store-name" id="storeName">
                             </div>
                             <div class="info__address">
                                 <div class="js-store-line1"></div>
@@ -67,9 +67,9 @@
                                 <div class="js-store-town"></div>
                             </div>
                         </div>
-                        <c:set var="storeName" value="${pageContext.request.getAttribute('storeName')}" />
-                        <c:url value="/store/Nakano" var="store"/>
-                        <a href="${fn:escapeXml(store)}">${storeName}</a>
+                        <button class="btn btn-default btn-block js-store-details" data-title="${fn:escapeXml(titlehtml)}">
+                            <spring:theme code="review.store.show"/>
+                        </button>
                         <hr>
                         <div class="store__finder--map js-store-finder-map"></div>
                         <hr>

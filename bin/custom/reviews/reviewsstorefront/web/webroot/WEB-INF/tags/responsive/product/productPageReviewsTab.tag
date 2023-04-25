@@ -16,7 +16,7 @@
 <c:url value="${product.url}/review" var="productReviewActionUrl"/>
 
 <div class="tab-review">
-	<spring:theme var="titlehtml"  code="review.write.title"/>
+	<spring:theme var="titlehtml"  code="review.write.product.title" arguments="${fn:escapeXml(product.name)}"/>
 		<sec:authorize access="!hasAnyRole('ROLE_ANONYMOUS')">
 			<c:if test="${verif}">
 			<button class="btn btn-default btn-block js-add-review" data-title="${fn:escapeXml(titlehtml)}"><spring:theme code="review.write.review"/></button>
