@@ -3,9 +3,10 @@ package de.hybris.reviews.services.service.impl;
 import de.hybris.platform.acceleratorservices.email.EmailService;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.core.model.user.CustomerModel;
+import de.hybris.platform.order.impl.DefaultOrderEntryService;
 import de.hybris.platform.util.Config;
-import de.hybris.reviews.core.dao.ReviewDao;
-import de.hybris.reviews.services.service.ReviewService;
+import de.hybris.reviews.core.dao.CustomOrderEntryDao;
+import de.hybris.reviews.services.service.CustomOrderEntryService;
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Required;
 import javax.mail.*;
@@ -13,8 +14,8 @@ import javax.mail.internet.*;
 
 import java.util.Properties;
 
-public class DefaultReviewService implements ReviewService {
-    private ReviewDao reviewDao;
+public class DefaultCustomOrderEntryService extends DefaultOrderEntryService implements CustomOrderEntryService  {
+    private CustomOrderEntryDao customOrderEntryDao;
     private EmailService emailService;
     public EmailService getEmailService() {
         return emailService;
@@ -25,25 +26,18 @@ public class DefaultReviewService implements ReviewService {
     }
 
 
-    public ReviewDao getReviewDao() {
-        return reviewDao;
+    public CustomOrderEntryDao getCustomOrderEntryDao() {
+        return customOrderEntryDao;
     }
     @Required
-    public void setReviewDao(ReviewDao reviewDao) {
-        this.reviewDao = reviewDao;
+    public void setCustomOrderEntryDao(CustomOrderEntryDao customOrderEntryDao) {
+        this.customOrderEntryDao = customOrderEntryDao;
     }
 
-    @Override
-    public Boolean HaveReviewsPending(ProductModel product, CustomerModel customer) {
-        Integer count=getReviewDao().findReviewByCustomerAndProductAndStatus(product,customer);
-        if(count==0)
-            return false;
-        return true;
-    }
 
     @Override
-    public Boolean HaveProdcutInOrderEntry(ProductModel product, CustomerModel customer) {
-        Integer count=getReviewDao().findOrderByCustomerAndDateAndProduct(product,customer);
+    public Boolean haveProductInOrderEntry(ProductModel product, CustomerModel customer) {
+        Integer count=getCustomOrderEntryDao().findOrderEntriesByCustomerAndDateAndProduct(product,customer);
         if(count==0)
             return false;
         return true;
@@ -51,7 +45,7 @@ public class DefaultReviewService implements ReviewService {
 
 
     @Override
-    public Boolean SendEmailToCustomer(String message,String mail) throws EmailException, MessagingException {
+    public Boolean sendEmailToCustomer(String message,String mail) throws EmailException, MessagingException {
 
         Session session =createSession();
         try {

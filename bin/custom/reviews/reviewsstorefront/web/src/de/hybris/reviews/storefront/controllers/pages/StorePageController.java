@@ -320,7 +320,7 @@ public class StorePageController extends AbstractPageController
 		if(!getUserService().getCurrentUser().getName().equals("Anonymous"))
 		{
 			String mail =mailContent(review);
-			reviewFacade.SendEmailToCustomer(mail,userService.getCurrentUser().getUid());
+			reviewFacade.sendEmailToCustomer(mail,userService.getCurrentUser().getUid());
 		}
 		GlobalMessages.addFlashMessage(redirectAttrs, GlobalMessages.CONF_MESSAGES_HOLDER, "review.confirmation.thank.you.title");
 		return REDIRECT_STORE + storeCode;

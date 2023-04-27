@@ -9,6 +9,30 @@ ACC.productReview = {
             var maValeur = document.getElementById("storeName").innerHTML;
             window.location.href=ACC.config.encodedContextPath + '/store/' +maValeur ;
         })
+        $(document).on("click", ".js-show-more", function (e) {
+            var comment = $(this).data("comment");
+            var customer = $(this).data("customer");
+            var title = $(this).data("title");
+            ACC.colorbox.open(ACC.common.encodeHtml(title), {
+                inline: true,
+                href: "#show_more",
+                maxWidth: "100%",
+                width: "600px",
+                overlayClose: false,
+                initialWidth: "600px",
+                onComplete: function () {
+                    $("#comment_content").html(comment);
+                    $("#customer_content").html(customer);
+                    $(this).colorbox.resize();
+                },
+                onCleanup: function () {
+                    $("#comment_content").html("");
+                    $("#customer_content").html("");
+                }
+
+            });
+
+        });
         $(document).on("click", ".js-add-review", function (e) {
             e.preventDefault();
             var title = $(this).data("title");
@@ -26,6 +50,7 @@ ACC.productReview = {
             });
 
         });
+
         $(document).on("click", ".js-close-popup-review", function (e) {
 
             e.preventDefault();

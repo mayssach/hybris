@@ -11,8 +11,8 @@ import javax.mail.MessagingException;
 import java.util.List;
 
 public interface ReviewFacade {
-    Boolean HaveProdcutInOrderEntry(ProductModel product, CustomerModel customer);
-    Boolean SendEmailToCustomer(String message,String mail) throws EmailException, MessagingException;
+    Boolean haveProdcutInOrderEntry(ProductModel product, CustomerModel customer);
+    Boolean sendEmailToCustomer(String message,String mail) throws EmailException, MessagingException;
 
     List<ModerationRuleModel> getAllModerationRules();
     ReviewData postSiteReview(String siteuid, ReviewData reviewData) throws UnknownIdentifierException, IllegalArgumentException;

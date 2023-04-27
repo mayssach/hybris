@@ -19,13 +19,18 @@
 	<c:set value="${productTagClasses} tag-${tag}" var="productTagClasses"/>
 </c:forEach>
 <li class="${fn:escapeXml(productTagClasses)}">
+	<div class="row">
+		<div class="col-md-0.5">
 	<ycommerce:testId code="test_searchPage_wholeProduct">
 		<a class="product__list--thumb" href="${fn:escapeXml(productUrl)}" title="${fn:escapeXml(product.name)}" >
 			<product:productPrimaryImage product="${product}" format="thumbnail"/>
 		</a>
+		</div>
+		<div class="col-md-11.5">
 		<ycommerce:testId code="searchPage_productName_link_${product.code}">
 			<a class="product__list--name" href="${fn:escapeXml(productUrl)}">${ycommerce:sanitizeHTML(product.name)}</a>
 		</ycommerce:testId>
+
 		<div class="product__list--price-panel">
 			<c:if test="${not empty product.potentialPromotions}">
 				<div class="product__listing--promo">
@@ -34,7 +39,6 @@
 					</c:forEach>
 				</div>
 			</c:if>
-
 			<ycommerce:testId code="searchPage_price_label_${product.code}">
 				<div class="product__listing--price"><product:productListerItemPrice product="${product}"/></div>
 			</ycommerce:testId>
@@ -43,7 +47,7 @@
 		<c:if test="${not empty product.summary}">
 			<div class="product__listing--description">${ycommerce:sanitizeHTML(product.summary)}</div>
 		</c:if>
-		<div class="rating" >
+		<div class="rating product__listing--description" >
 			<div class="rating-stars pull-left js-ratingCalc ${fn:escapeXml(starsClass)}" data-rating='{"rating":"${fn:escapeXml(product.averageRating)}","total":5}' >
 				<div class="greyStars">
 					<c:forEach  begin="1" end="5">
@@ -56,9 +60,9 @@
 					</c:forEach>
 				</div>
 			</div>
-			<div class="rating-number" style="margin-top:25px;">${product.numberOfReviews}&nbsp;reviews</div>
+			<div style="margin-top:25px;color: #990000">${product.numberOfReviews}&nbsp;reviews</div>
 		</div>
-
+		</div>
 
 		<c:set var="product" value="${product}" scope="request"/>
 		<c:set var="addToCartText" value="${addToCartText}" scope="request"/>
@@ -68,7 +72,7 @@
 				<action:actions element="div" parentComponent="${component}"  />
 			</div>
 		</div>
-
+		</div>
 	</ycommerce:testId>
 </li>
 

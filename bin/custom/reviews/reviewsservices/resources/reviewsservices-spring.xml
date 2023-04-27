@@ -83,9 +83,9 @@
         <property name="flexibleSearchService" ref="flexibleSearchService"/>
     </bean>
 
-    <alias alias="reviewService" name="defaultReviewService"/>
-    <bean id="defaultReviewService" class="de.hybris.reviews.services.service.impl.DefaultReviewService">
-        <property name="reviewDao" ref="reviewDao"/>
+    <alias alias="orderEntryService" name="defaultCustomOrderEntryService"/>
+    <bean id="defaultCustomOrderEntryService" class="de.hybris.reviews.services.service.impl.DefaultCustomOrderEntryService" parent="defaultOrderEntryService">
+        <property name="customOrderEntryDao" ref="customOrderEntryDao"/>
         <property name="emailService" ref="emailService"/>
     </bean>
 
@@ -95,8 +95,8 @@
     </bean>
 
 
-    <alias alias="customerReviewService" name="defaultCustomerReviewService1"/>
-    <bean id="defaultCustomerReviewService1" class="de.hybris.reviews.services.service.impl.DefaultCustomerReviewService1" parent="defaultCustomerReviewService">
+    <alias alias="customerReviewService" name="defaultCustomCustomerReviewService"/>
+    <bean id="defaultCustomCustomerReviewService" class="de.hybris.reviews.services.service.impl.DefaultCustomCustomerReviewService" parent="defaultCustomerReviewService">
         <property name="customerReviewDao" ref="customerReviewDao"/>
         <property name="modelService" ref="modelService"/>
     </bean>
@@ -113,12 +113,9 @@
         <property name="storeReviewDao" ref="storeReviewDao"/>
     </bean>
 
-    <alias name="defaultReviewCarouselRendererService" alias="reviewCarouselRendererService"/>
-    <bean id="defaultReviewCarouselRendererService" class="de.hybris.reviews.services.service.impl.DefaultReviewCarouselRendererService"/>
 
-
-    <alias alias="pointOfServiceService" name="defaultPointOfServiceService1"/>
-    <bean id="defaultPointOfServiceService1" class="de.hybris.reviews.services.service.impl.DefaultPointOfServiceService1" parent="defaultPointOfServiceService" >
+    <alias alias="pointOfServiceService" name="defaultCustomPointOfServiceService"/>
+    <bean id="defaultCustomPointOfServiceService" class="de.hybris.reviews.services.service.impl.DefaultCustomPointOfServiceService" parent="defaultPointOfServiceService" >
         <property name="pointOfServiceDao" ref="pointOfServiceDao"/>
     </bean>
 

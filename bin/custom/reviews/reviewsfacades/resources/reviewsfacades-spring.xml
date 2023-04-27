@@ -186,7 +186,7 @@
 
 	<alias name="defaultReviewFacade" alias="reviewFacade"/>
 	<bean id="defaultReviewFacade" class="de.hybris.reviews.facades.review.impl.DefaultReviewFacade" >
-		<property name="reviewService" ref="reviewService"/>
+		<property name="customOrderEntryService" ref="orderEntryService"/>
 		<property name="moderationRuleService" ref="moderationRuleService" />
 		<property name="userService" ref="userService"/>
 		<property name="modelService" ref="modelService"/>
@@ -203,7 +203,7 @@
 
 	<bean id="moderationRuleJob" class="de.hybris.reviews.facades.cronjob.ModerationRuleJob" parent="abstractJobPerformable">
 		<property name="moderationRuleService" ref="moderationRuleService"/>
-		<property name="customerReviewService1" ref="customerReviewService"/>
+		<property name="customCustomerReviewService" ref="customerReviewService"/>
 	</bean>
 
 	<alias name="defaultSiteReviewConverter" alias="siteReviewConverter"/>
@@ -238,19 +238,19 @@
 		<property name="principalConverter" ref="principalConverter"/>
 	</bean>
 
-	<alias name="defaultPointOfServicePopulator1" alias="pointOfServicePopulator"/>
-	<bean id="defaultPointOfServicePopulator1"
-		  class="de.hybris.reviews.facades.populators.PointOfServicePopulator1" parent="defaultPointOfServicePopulator">
+	<alias name="defaultCustomPointOfServicePopulator" alias="pointOfServicePopulator"/>
+	<bean id="defaultCustomPointOfServicePopulator"
+		  class="de.hybris.reviews.facades.populators.CustomPointOfServicePopulator" parent="defaultPointOfServicePopulator">
 	</bean>
 
-	<alias name="defaultProductPopulator1" alias="productBasicPopulator"/>
-	<bean id="defaultProductPopulator1"
-		  class="de.hybris.reviews.facades.populators.ProductPopulator1" parent="defaultProductBasicPopulator">
+	<alias name="defaultCustomProductPopulator" alias="productBasicPopulator"/>
+	<bean id="defaultCustomProductPopulator"
+		  class="de.hybris.reviews.facades.populators.CustomProductPopulator" parent="defaultProductBasicPopulator">
 	</bean>
 
-	<alias name="defaultSearchResultProductPopulator1" alias="commerceSearchResultProductPopulator"/>
-	<bean id="defaultSearchResultProductPopulator1"
-		  class="de.hybris.reviews.facades.populators.SearchResultProductPopulator1" parent="defaultCommerceSearchResultProductPopulator">
+	<alias name="defaultCustomSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
+	<bean id="defaultCustomSearchResultProductPopulator"
+		  class="de.hybris.reviews.facades.populators.CustomSearchResultProductPopulator" parent="defaultCommerceSearchResultProductPopulator">
 	</bean>
 
 
@@ -258,7 +258,7 @@
 		<property name="productService" ref="productService"/>
 		<property name="baseSiteService" ref="baseSiteService"/>
 		<property name="storeReviewService" ref="storeReviewService"/>
-		<property name="pointOfServiceService1" ref="pointOfServiceService"/>
+		<property name="customPointOfServiceService" ref="pointOfServiceService"/>
 		<property name="catalogService" ref="catalogService"/>
 		<property name="customerReviewService" ref="customerReviewService"/>
 		<property name="siteReviewService" ref="siteReviewService"/>

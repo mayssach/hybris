@@ -539,14 +539,14 @@
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
 
-	<alias alias="reviewDao" name="defaultReviewDao"/>
-	<bean id="defaultReviewDao" class="de.hybris.reviews.core.dao.impl.DefaultReviewDao" parent="abstractItemDao"/>
+	<alias alias="customOrderEntryDao" name="defaultCustomOrderEntryDao"/>
+	<bean id="defaultCustomOrderEntryDao" class="de.hybris.reviews.core.dao.impl.DefaultCustomOrderEntryDao" parent="abstractItemDao"/>
 
 	<alias alias="moderationRuleDao" name="defaultModerationRuleDao"/>
 	<bean id="defaultModerationRuleDao" class="de.hybris.reviews.core.dao.impl.DefaultModerationRuleDao" parent="abstractItemDao"/>
 
-	<alias alias="customerReviewDao" name="DefaultCustomerReviewDao1"/>
-	<bean id="DefaultCustomerReviewDao1" class="de.hybris.reviews.core.dao.impl.DefaultCustomerReviewDao1" parent="defaultCustomerReviewDao"/>
+	<alias alias="customerReviewDao" name="defaultCustomCustomerReviewDao"/>
+	<bean id="defaultCustomCustomerReviewDao" class="de.hybris.reviews.core.dao.impl.DefaultCustomCustomerReviewDao" parent="defaultCustomerReviewDao"/>
 
 	<alias alias="siteReviewDao" name="defaultSiteReviewDao"/>
 	<bean id="defaultSiteReviewDao" class="de.hybris.reviews.core.dao.impl.DefaultSiteReviewDao" parent="abstractItemDao"/>

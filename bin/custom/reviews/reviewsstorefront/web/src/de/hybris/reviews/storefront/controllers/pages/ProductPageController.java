@@ -151,8 +151,7 @@ public class ProductPageController extends AbstractPageController
 		model.addAttribute("reviewsData", reviews);
 		UserModel user = userService.getCurrentUser();
 		final ProductModel productModel = productService.getProductForCode(productCode);
-		boolean haveProductInOrder=reviewFacade.HaveProdcutInOrderEntry(productModel,(CustomerModel) user);
-		/*boolean haveReviewPending=reviewService.HaveReviewsPending(productModel,(CustomerModel) user);*/
+		boolean haveProductInOrder=reviewFacade.haveProdcutInOrderEntry(productModel,(CustomerModel) user);
 		if (haveProductInOrder) {
 			model.addAttribute("verif", true);
 		} else {
@@ -258,7 +257,7 @@ public class ProductPageController extends AbstractPageController
 
 
 		String mail =mailContent(review);
-		reviewFacade.SendEmailToCustomer(mail,userService.getCurrentUser().getUid());
+		reviewFacade.sendEmailToCustomer(mail,userService.getCurrentUser().getUid());
 
 
 		GlobalMessages.addFlashMessage(redirectAttrs, GlobalMessages.CONF_MESSAGES_HOLDER, "review.confirmation.thank.you.title");

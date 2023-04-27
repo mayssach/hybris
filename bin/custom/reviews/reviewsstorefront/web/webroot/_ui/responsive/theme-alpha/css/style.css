@@ -9,6 +9,14 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
+.button_show_more {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: #118291;
+  cursor: pointer;
+}
 body {
   margin: 0;
 }
@@ -15571,7 +15579,7 @@ fieldset#startDate .form-group .control-label {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
 }
-/* 
+/*
     User Style:
     Change the following styles to modify the appearance of Colorbox.  They are
     ordered & tabbed in a way that represents the nesting of the generated HTML.
