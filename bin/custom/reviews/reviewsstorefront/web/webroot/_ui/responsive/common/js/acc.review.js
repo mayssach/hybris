@@ -83,15 +83,3 @@ ACC.productReview = {
 
     }
 }
-/*  $(document).ready(function() {
-          // Cible le conteneur du commentaire
-          var container = $('.commentContent');
-          // Cible le bouton "Voir plus"
-          var button = container.find('.show-more');
-
-          // Au clic sur le bouton
-          button.on('click', function() {
-              // Ajoute la classe "expanded" au conteneur
-              container.addClass('expanded');
-          });
-      });*/

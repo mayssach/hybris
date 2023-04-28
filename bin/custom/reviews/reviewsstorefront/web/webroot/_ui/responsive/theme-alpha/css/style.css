@@ -10727,7 +10727,17 @@ fieldset[disabled] .btn-primary.active {
   border-style: groove;
   border-color: #0f738499;
   block-size: 850px;
-  height: 260px;
+  height: 221px;
+  position: relative;
+  border-radius: 5px;
+}
+.dateReview{
+  position: absolute;
+  top: 180px;
+  left: 20%;
+  font-weight: 600;
+  font-size: 12px;
+  color: black;
 }
 .name{
   font-weight: bold;
@@ -11057,11 +11067,14 @@ fieldset[disabled] .btn-primary.active {
   position: relative;
 }
 .limited-height {
-  max-height: 100px;
+  max-height: 30px;
   overflow: hidden;
 }
 .rating-number{
   color: #990000;
+  font-weight: bold;
+  font-size: 14px;
+
 }
 .rating-review{
   margin-left: 20%;
