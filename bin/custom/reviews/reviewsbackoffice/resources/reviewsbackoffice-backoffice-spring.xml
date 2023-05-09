@@ -12,4 +12,10 @@
   		<property name="name" value="labels"/>
   	</bean>
 
+	<alias name="defaultCsvImportHandler" alias="csvImportHandler"/>
+	<bean name="defaultCsvImportHandler" class="de.hybris.reviews.backoffice.actions.CsvImportHandler" parent="abstractExcelImportHandler">
+		<property name="modelService" ref="modelService"/>
+		<property name="customCustomerReviewService" ref="customerReviewService"/>
+
+	</bean>
 </beans>

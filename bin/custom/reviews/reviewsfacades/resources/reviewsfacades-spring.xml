@@ -255,12 +255,8 @@
 
 
 	<bean id="exportReviewsJob" class="de.hybris.reviews.facades.cronjob.ExportReviewsJob" parent="abstractJobPerformable">
-		<property name="productService" ref="productService"/>
-		<property name="baseSiteService" ref="baseSiteService"/>
 		<property name="storeReviewService" ref="storeReviewService"/>
-		<property name="customPointOfServiceService" ref="pointOfServiceService"/>
-		<property name="catalogService" ref="catalogService"/>
-		<property name="customerReviewService" ref="customerReviewService"/>
+		<property name="customCustomerReviewService" ref="customerReviewService"/>
 		<property name="siteReviewService" ref="siteReviewService"/>
 
 	</bean>

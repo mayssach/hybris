@@ -16,6 +16,8 @@
         
         <requires-extension name="reviewscore"/>
         <requires-extension name="customerreview"/>
+        <requires-extension name="reviewsservices"/>
+        <requires-extension name="platformbackoffice"/>
                 		
         
         <coremodule generated="true" manager="org.reviewsbackoffice.jalo.YacceleratorbackofficeManager" packageroot="org.reviewsbackoffice"/>

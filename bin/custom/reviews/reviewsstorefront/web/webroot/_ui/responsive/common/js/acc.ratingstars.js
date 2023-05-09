@@ -9,9 +9,7 @@ ACC.ratingstars = {
 
 		$(".js-ratingCalc").each(function(){
 			var rating =  $(this).data("rating");
-            console.log($(this).width());
 			$(this).find(".js-greenStars").width($(this).width() * ( parseFloat(rating.rating, 10) / rating.total ))
-
 		})
 	},
 	bindRatingStarsSet: function(){

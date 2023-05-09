@@ -5,6 +5,53 @@
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widgets.xsd">
 
+	<widget-extension widgetId="mainSlot">
+		<widget id="excelReviewImportFlowContextCreator" widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor" slotId="cockpitWidgetChildrenInvisible" template="false">
+			<setting key="expression" type="String">{
+				TYPE_CODE:#root
+				, configurableFlowConfigCtx:'excel-import-wizard'
+				}</setting>
+			<setting key="socketDataType_$T" type="String">java.util.Map</setting>
+			<virtual-sockets/>
+		</widget>
+
+		<widget id="my_wizard_conditionevaluator" widgetDefinitionId="com.hybris.cockpitng.conditionevaluator"
+				slotId="cockpitWidgetChildrenInvisible"
+				template="false">
+			<widget
+					id="my_wizard_propertyextractor"
+					widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor"
+					slotId="cockpitWidgetChildrenInvisible"
+					template="false"
+			>
+				<setting key="expression" type="String" value="id"/>
+				<setting key="socketDataType_$T" type="String" value="java.lang.String"/>
+			</widget>
+			<setting key="expression" type="String" value="#root?.id EQ 'hmc_type_tree_importCsv'"/>
+			<setting key="socketDataType_$T" type="String" value="com.hybris.backoffice.navigation.NavigationNode"/>
+		</widget>
+	</widget-extension>
+	<widget-connection
+			sourceWidgetId="explorerTree"
+			outputId="nodeSelected"
+			targetWidgetId="my_wizard_conditionevaluator"
+			inputId="input"
+	/>
+	<widget-connection
+			sourceWidgetId="my_wizard_conditionevaluator"
+			outputId="true"
+			targetWidgetId="my_wizard_propertyextractor"
+			inputId="genericInput"
+	/>
+	<widget-connection
+			sourceWidgetId="my_wizard_propertyextractor"
+			outputId="genericOutput"
+			targetWidgetId="configurableFlow"
+			inputId="contextType"
+	/>
 
 
-		</widgets>
+	<widget-connection sourceWidgetId="STUB_com.hybris.cockpitng.listview.action.import.csv" outputId="typeCode" targetWidgetId="excelReviewImportFlowContextCreator" inputId="genericInput"/>
+	<widget-connection sourceWidgetId="excelReviewImportFlowContextCreator" outputId="genericOutput" targetWidgetId="configurableFlow" inputId="context"/>
+
+</widgets>

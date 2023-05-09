@@ -32,24 +32,37 @@ ACC.tabs = {
 
 		});
 
-		$e.on("click","#tabreview",function(e){
-			e.preventDefault();
-           /* ACC.track.trackShowReviewClick();*/
-			ACC.tabs.showReviewsAction("reviews");
-		});
+
+				$e.on("click","#tabreview",function(e){
+					var productCode = $('[name=productCodePost]').val();
+					var url=ACC.config.encodedContextPath + "/p/" + productCode + "/reviewjson";
+					console.log(url)
+					$.ajax({
+						type: "GET",
+						url: url,
+						dataType: "html",
+						async: true,
+						success: function (data) {
+							$("#reviews-container").html(data);
+							ACC.ratingstars.bindRatingStars();
+							ACC.carousel.bindCarousel();
+						}
+					});
+
+				});
 
 		$e.on("click",".all-reviews-btn",function(e){
 			e.preventDefault();
-			ACC.tabs.showReviewsAction("allreviews");
+			/*ACC.tabs.showReviewsAction("allreviews");
 			ACC.tabs.hideReviewBtn(".all-reviews-btn");
-			ACC.tabs.showReviewBtn(".less-reviews-btn");
+			ACC.tabs.showReviewBtn(".less-reviews-btn");*/
 		});
 
 		$e.on("click",".less-reviews-btn",function(e){
 			e.preventDefault();
-			ACC.tabs.showReviewsAction("reviews");
+		/*	ACC.tabs.showReviewsAction("reviews");
 			ACC.tabs.hideReviewBtn(".less-reviews-btn");
-			ACC.tabs.showReviewBtn(".all-reviews-btn");
+			ACC.tabs.showReviewBtn(".all-reviews-btn");*/
 		});
 
 		$(document).on("click", '.js-writeReviewTab', function(e){

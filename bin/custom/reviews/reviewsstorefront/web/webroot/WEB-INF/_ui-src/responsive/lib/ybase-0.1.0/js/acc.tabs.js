@@ -32,11 +32,24 @@ ACC.tabs = {
 
 		});
 
-		$e.on("click","#tabreview",function(e){
-			e.preventDefault();
-            ACC.track.trackShowReviewClick();
-			ACC.tabs.showReviewsAction("reviews");
-		});
+
+				$e.on("click","#tabreview",function(e){
+					var productCode = $('[name=productCodePost]').val();
+					var url=ACC.config.encodedContextPath + "/p/" + productCode + "/reviewjson";
+					console.log(url)
+					$.ajax({
+						type: "GET",
+						url: url,
+						dataType: "html",
+						async: true,
+						success: function (data) {
+							$("#reviews-container").html(data);
+							ACC.ratingstars.bindRatingStars();
+							ACC.carousel.bindCarousel();
+						}
+					});
+
+				});
 
 		$e.on("click",".all-reviews-btn",function(e){
 			e.preventDefault();

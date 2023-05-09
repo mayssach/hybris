@@ -37,7 +37,6 @@
 			<c:if test="${not empty product.reviews}">
 				<a href="#tabreview" class="js-openTab"><spring:theme code="review.see.reviews" /></a>
 			</c:if>
-			<a href="#tabreview" class="js-writeReviewTab"><spring:theme code="review.write.title" /></a>
 		</c:when>
 		<c:otherwise>
 			<spring:theme code="review.reviews" />

@@ -150,6 +150,7 @@ public interface ControllerConstants
 			interface Product // NOSONAR
 			{
 				String WriteReview = "pages/product/writeReview"; // NOSONAR
+				String GetReviews = "pages/product/productPageReviewsCarousel"; // NOSONAR
 				String OrderForm = "pages/product/productOrderFormPage"; // NOSONAR
 			}
 
@@ -209,4 +210,11 @@ public interface ControllerConstants
 			}
 		}
 	}
+	/*interface Tags{
+		interface Responsive{
+			interface Product{
+				String ProductPageReviewsTab = "responsive/product/productPageReviewsTab";
+			}
+		}
+	}*/
 }

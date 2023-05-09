@@ -8,20 +8,25 @@
 <%@ taglib prefix="productt" tagdir="/WEB-INF/tags/responsive/product"%>
 <%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="ratingJson">${ycommerce:encodeJSON(Math.round(product.averageRating * 100) / 100.0)}</c:set>
 <spring:htmlEscape defaultHtmlEscape="true" />
-
 <c:url value="${product.url}/reviewhtml/3" var="getPageOfReviewsUrl"/>
 <c:url value="${product.url}/reviewhtml/all" var="getAllReviewsUrl"/>
 <c:url value="${product.url}/review" var="productReviewActionUrl"/>
 
 <div class="tab-review">
+	<div class="row">
+		<div class="col-md-2 col-lg-2">
 	<spring:theme var="titlehtml"  code="review.write.product.title" arguments="${fn:escapeXml(product.name)}"/>
 		<sec:authorize access="!hasAnyRole('ROLE_ANONYMOUS')">
 			<c:if test="${verif}">
 			<button class="btn btn-default btn-block js-add-review" data-title="${fn:escapeXml(titlehtml)}"><spring:theme code="review.write.review"/></button>
 			</c:if>
 		</sec:authorize>
+		</div>
+	</div>
+
 	<div id="popup_add_review" >
 		<div class="row">
 				<div class="write-review">
@@ -66,4 +71,3 @@
 	</div>
 
 </div>
-

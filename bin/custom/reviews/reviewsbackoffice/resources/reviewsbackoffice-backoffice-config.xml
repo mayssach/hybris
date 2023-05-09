@@ -4,7 +4,9 @@
 -->
 <config xmlns="http://www.hybris.com/cockpit/config"
 	xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
-		xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+		xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+		xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+		xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms">
 
 	<context merge-by="module" component="editorareaactions" type="Consignment">
 		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
@@ -36,27 +38,16 @@
 		</explorer-tree:explorer-tree>
 	</context>
 
+	<context merge-by="type" type="ModerationRule" component="listview">
+		<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
+			<list-view:column qualifier="type"/>
+			<list-view:column qualifier="comparator"/>
+			<list-view:column qualifier="words" label="moderationWord.value"/>
+			<list-view:column qualifier="creationtime"/>
+		</list-view:list-view>
+	</context>
 
-		<!--<context merge-by="module" parent="auto" component="explorer-tree">
-			<explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
-				<explorer-tree:navigation-node id="hmc_treenode_system">
-					<explorer-tree:type-node code="ModerationRule" id="hmc_type_tree_moderationrule" />
-					<explorer-tree:type-node code="ModerationWord" id="hmc_type_tree_moderationword" />
-					<explorer-tree:type-node code="CustomerReview" id="hmc_type_tree_validate_review" />
-				</explorer-tree:navigation-node>
-			</explorer-tree:explorer-tree>
-		</context>-->
-
-		<context merge-by="type" type="ModerationRule" component="listview">
-			<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
-				<list-view:column qualifier="type"/>
-				<list-view:column qualifier="comparator"/>
-				<list-view:column qualifier="words" label="moderationWord.value"/>
-				<list-view:column qualifier="creationtime"/>
-			</list-view:list-view>
-		</context>
-
-		<context merge-by="type" type="ModerationRule" component="editor-area">
+	<context merge-by="type" type="ModerationRule" component="editor-area">
 			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
 				<editorArea:essentials>
 					<editorArea:essentialSection name="hmc.essential">
@@ -66,9 +57,9 @@
 					</editorArea:essentialSection>
 				</editorArea:essentials>
 			</editorArea:editorArea>
-		</context>
+	</context>
 
-		<context merge-by="type" type="ModerationRule" component="advanced-search">
+	<context merge-by="type" type="ModerationRule" component="advanced-search">
 			<advanced-search xmlns="http://www.hybris.com/cockpitng/config/advancedsearch">
 				<field-list>
 					<field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="type" selected="true"/>
@@ -77,7 +68,7 @@
 					<field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="creationtime" selected="false"/>
 				</field-list>
 			</advanced-search>
-		</context>
+	</context>
 
 
 
@@ -109,32 +100,17 @@
 		</advanced-search>
 	</context>
 
-	<context type="CustomerReview" component="editorareaactions" module="platformbackoffice">
-		<y:actions>
-			<y:group qualifier="common">
-				<y:label>actiongroup.common</y:label>
-				<y:action action-id="com.hybris.cockpitng.action.delete" property="currentObject"/>
-				<y:action action-id="de.hybris.reviews.backoffice.actions.approvedReview" property="currentObject"/>
-				<y:action action-id="com.hybris.backoffice.widgets.actions.sync" property="currentObject"/>
-				<y:action action-id="com.hybris.cockpitng.action.clone" property="currentObject"/>
-			</y:group>
-		</y:actions>
-	</context>
 
-
-
-
-
-
-		<context merge-by="module" parent="auto" component="explorer-tree">
+	<context merge-by="module" parent="auto" component="explorer-tree">
 			<explorer-tree:explorer-tree xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
 				<explorer-tree:navigation-node id="hmc_treenode_marketing">
 					<explorer-tree:type-node code="SiteReview" id="hmc_type_tree_sitereview"/>
 					<explorer-tree:type-node code="StoreReview" id="hmc_type_tree_storereview"/>
+					<explorer-tree:navigation-node id="hmc_type_tree_importCsv"/>
 				</explorer-tree:navigation-node>
 			</explorer-tree:explorer-tree>
-		</context>
-		<context merge-by="type" type="SiteReview" component="listview">
+	</context>
+	<context merge-by="type" type="SiteReview" component="listview">
 			<list-view:list-view xmlns:list-view="http://www.hybris.com/cockpitng/component/listView">
 				<list-view:column qualifier="rating"/>
 				<list-view:column qualifier="site"/>
@@ -145,8 +121,8 @@
 				<list-view:column qualifier="approvalStatus"/>
 				<list-view:column qualifier="language"/>
 			</list-view:list-view>
-		</context>
-		<context merge-by="module" parent="auto" type="Customer" component="editor-area">
+	</context>
+	<context merge-by="module" parent="auto" type="Customer" component="editor-area">
 			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
 				<editorArea:tab name="hmc.tab.community.site" position="7">
 					<editorArea:section name="hmc.user.sections.sitereviews">
@@ -154,8 +130,8 @@
 					</editorArea:section>
 				</editorArea:tab>
 			</editorArea:editorArea>
-		</context>
-		<context merge-by="module" parent="auto" type="BaseSite" component="editor-area">
+	</context>
+	<context merge-by="module" parent="auto" type="BaseSite" component="editor-area">
 			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
 				<editorArea:tab name="hmc.tab.community.site" position="30">
 					<editorArea:section name="hmc.product.sections.sitereviews">
@@ -165,8 +141,8 @@
 					</editorArea:section>
 				</editorArea:tab>
 			</editorArea:editorArea>
-		</context>
-		<context merge-by="type" type="SiteReview" component="editor-area">
+	</context>
+	<context merge-by="type" type="SiteReview" component="editor-area">
 			<editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
 				<editorArea:essentials>
 					<editorArea:essentialSection name="hmc.essential">
@@ -197,8 +173,8 @@
 					</editorArea:section>
 				</editorArea:tab>
 			</editorArea:editorArea>
-		</context>
-		<context merge-by="type" type="SiteReview" component="advanced-search">
+	</context>
+	<context merge-by="type" type="SiteReview" component="advanced-search">
 			<advanced-search:advanced-search xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch">
 				<advanced-search:field-list>
 					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" name="alias" selected="false"/>
@@ -218,14 +194,14 @@
 					<advanced-search:field xmlns="http://www.hybris.com/cockpitng/config/advancedsearch" editor="java.lang.Long" name="pk" selected="false"/>
 				</advanced-search:field-list>
 			</advanced-search:advanced-search>
-		</context>
-		<context type="SiteReview" component="base" merge-by="type" >
+	</context>
+	<context type="SiteReview" component="base" merge-by="type" >
 			<y:base xmlns:y="http://www.hybris.com/cockpit/config/hybris">
 				<y:labels>
 					<y:label>rating+ ' ' +headline</y:label>
 				</y:labels>
 			</y:base>
-		</context>
+	</context>
 
 
 
@@ -320,6 +296,135 @@
 				<y:label>rating+ ' ' +headline</y:label>
 			</y:labels>
 		</y:base>
+	</context>
+
+	<context type="hmc_type_tree_importCsv" component="create-wizard">
+		<wz:flow id="ImpExImportWizard" title="impex.import.title">
+			<wz:prepare id="impExImportPrepare">
+				<wz:initialize property="importForm" type="de.hybris.platform.platformbackoffice.widgets.impex.ImpExImportForm"/>
+			</wz:prepare>
+			<wz:step id="step1" label="impex.import.prepare.label" sublabel="impex.import.prepare.sublabel">
+				<wz:content id="step1.content">
+					<wz:property-list root="importForm">
+						<wz:property qualifier="result" editor="com.hybris.cockpitng.editor.impexfileupload">
+							<wz:editor-parameter>
+								<wz:name>bindProperty</wz:name>
+								<wz:value>impExMedia</wz:value>
+							</wz:editor-parameter>
+						</wz:property>
+					</wz:property-list>
+				</wz:content>
+				<wz:navigation id="step1.navigation">
+					<wz:cancel/>
+					<wz:custom label="excel.import.wizard.button.label" handler="csvImportHandler"
+							   visible="excelForm.excelFile!=null"/>
+				</wz:navigation>
+			</wz:step>
+
+			<wz:step id="step2" label="">
+				<wz:content id="step2.content">
+					<wz:custom-view lang="zul">
+						<wz:renderer spring-bean="excelImportValidationResultRenderer"/>
+					</wz:custom-view>
+				</wz:content>
+				<wz:navigation id="step2.navigation">
+					<wz:back/>
+					<wz:cancel/>
+					<wz:custom label="excel.import.ignore.wizard.button.label"
+							   handler="excelWithoutValidationImportHandler" visible="!excelHasValidationErrors"/>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
+	</context>
+
+	<context type="CustomerReview" component="excel-import-wizard" merge-by="type">
+		<wz:flow id="excelImportWizard" title="excel.import.wizard.title" show-breadcrumb="false">
+			<wz:prepare id="excelImportWizardPrepare">
+				<wz:initialize property="excelForm" template-bean="excelImportWizardForm"/>
+			</wz:prepare>
+			<wz:step id="step1" label="">
+				<wz:content>
+					<wz:property qualifier="excelForm.excelFile"
+								 type="com.hybris.cockpitng.editor.defaultfileupload.FileUploadResult"
+								 editor="com.hybris.cockpitng.editor.dndfileupload" validate="false">
+						<wz:editor-parameter>
+							<wz:name>accept</wz:name>
+							<wz:value>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</wz:value>
+						</wz:editor-parameter>
+						<wz:editor-parameter>
+							<wz:name>singleLineMode</wz:name>
+							<wz:value>true</wz:value>
+						</wz:editor-parameter>
+					</wz:property>
+					<wz:property qualifier="excelForm.zipFile"
+								 type="com.hybris.cockpitng.editor.defaultfileupload.FileUploadResult"
+								 editor="com.hybris.cockpitng.editor.dndfileupload" validate="false">
+						<wz:editor-parameter>
+							<wz:name>accept</wz:name>
+							<wz:value>application/zip</wz:value>
+						</wz:editor-parameter>
+						<wz:editor-parameter>
+							<wz:name>singleLineMode</wz:name>
+							<wz:value>true</wz:value>
+						</wz:editor-parameter>
+					</wz:property>
+				</wz:content>
+				<wz:navigation id="step1.navigation">
+					<wz:cancel/>
+					<wz:custom label="excel.import.wizard.button.label" handler="csvImportHandler"
+							   visible="excelForm.excelFile!=null"/>
+				</wz:navigation>
+			</wz:step>
+			<wz:step id="step2" label="">
+				<wz:content id="step2.content">
+					<wz:custom-view lang="zul">
+						<wz:renderer spring-bean="excelImportValidationResultRenderer"/>
+					</wz:custom-view>
+				</wz:content>
+				<wz:navigation id="step2.navigation">
+					<wz:back/>
+					<wz:cancel/>
+					<wz:custom label="excel.import.ignore.wizard.button.label"
+							   handler="excelWithoutValidationImportHandler" visible="!excelHasValidationErrors"/>
+				</wz:navigation>
+			</wz:step>
+		</wz:flow>
+	</context>
+
+
+
+	<context type="CustomerReview" component="listviewactions" merge-by="type">
+		<y:actions>
+			<y:group qualifier="common" show-group-header="false">
+				<y:action action-id="com.hybris.cockpitng.action.delete" merge-mode="selectedObjects"/>
+				<y:action action-id="com.hybris.cockpitng.listview.action.export.csv" merge-mode="exportColumnsAndData"/>
+			</y:group>
+			<y:group qualifier="bulk" show-group-header="false">
+				<y:action action-id="com.hybris.backoffice.widgets.actions.enumeration" property="selectedObjects">
+					<y:parameter>
+						<y:name>qualifier</y:name>
+						<y:value>approvalStatus</y:value>
+					</y:parameter>
+					<y:parameter>
+						<y:name>actionName</y:name>
+						<y:value>bulk.approval</y:value>
+					</y:parameter>
+				</y:action>
+			</y:group>
+			<y:extended-group qualifier="export" show-group-header="false">
+				<y:action action-id="com.hybris.backoffice.widgets.actions.excel.export" property="pageable.typeCode"/>
+				<y:action action-id="de.hybris.reviews.backoffice.actions.ExportCsv" property="exportColumnsAndData">
+					<y:parameter>
+						<y:name>actionName</y:name>
+						<y:value>label.export.csv</y:value>
+					</y:parameter>
+				</y:action>
+				<y:extended-action action-id="com.hybris.backoffice.widgets.actions.excel.export"/>
+			</y:extended-group>
+			<y:group qualifier="import" show-group-header="false" show-separator="false">
+				<y:action action-id="com.hybris.cockpitng.listview.action.import.csv" property="pageable.typeCode"/>
+			</y:group>
+		</y:actions>
 	</context>
 
 </config>

@@ -8,95 +8,22 @@
 <c:url value="${product.url}/reviewhtml/3" var="getPageOfReviewsUrl"/>
 <c:url value="${product.url}/reviewhtml/all" var="getAllReviewsUrl"/>
 <c:url value="${product.url}/review" var="productReviewActionUrl"/>
+<c:url value="${product.url}/reviewjson" var="productReviewUrl"/>
 
-<c:set var="ratingJson">${ycommerce:encodeJSON(Math.round(product.averageRating * 100) / 100.0)}</c:set>
+<spring:theme var="myProductCode" code="${product.code}"/>
 
-<div id="tabreview" class="tabhead">
+<div id="tabreview" class="tabhead" data-productCode="${myProductCode}">
 	<a href="">${fn:escapeXml(title)}</a> <span <%--class="glyphicon"--%>></span>
 </div>
 
 <div class="tabbody">
 		<div class="row">
-			<div class="col-md-2 col-lg-2">
+			<div class="col-md-12 col-lg-12">
 				<div class="tab-container">
 					<product:productPageReviewsTab product="${product}" />
 				</div>
 			</div>
 		</div>
-	<div class="carousel__component">
-		<div class="carousel__component--headline">
-			<spring:theme code="reviews.headline"/>
-			<br>
-			<fmt:formatNumber value="${product.averageRating}" pattern="#,##0.##" var="avgRating" />
-			Rating avarage:&nbsp;${avgRating}/5&nbsp;(${product.numberOfReviews}&nbsp;reviews)
-			<br>
-			<div class="rating rating-carousel" >
-				<div class="rating-stars pull-left js-ratingCalc ${fn:escapeXml(starsClass)}" data-rating='{"rating":"${fn:escapeXml(ratingJson)}","total":5}' >
-					<div class="greyStars">
-						<c:forEach  begin="1" end="5">
-							<span class="glyphicon glyphicon-star"></span>
-						</c:forEach>
-					</div>
-					<div class="greenStars js-greenStars">
-						<c:forEach  begin="1" end="5">
-							<span class="glyphicon glyphicon-star active"></span>
-						</c:forEach>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="carousel__component--carousel js-owl-carousel js-owl-default">
-			<c:forEach items="${reviewsData}" var="review">
-				<div class="carousel__item reviewsCarousel">
-					<div class="carousel__item--name">
-							<div class="name">${fn:escapeXml(review.principal.name)}</div>
-					</div>
-					<div class="carousel__item--name">
-						<div class="name"><spring:theme code="reviews.title"/>&nbsp;${fn:escapeXml(review.headline)}</div>
-					</div>
-
-					<div class="carousel__item--name" >
-						<div class="rating-number">
-							<fmt:formatNumber value="${review.rating}" pattern="##0.##" var="rating" />
-								${rating}/5
-						</div>
-						<div class="rating rating-review">
-							<div class="rating-stars pull-left js-ratingCalcul js-ratingCalc" data-rating='{"rating":"${ycommerce:encodeJSON(review.rating)}","total":5}'>
-								<div class="greyStars">
-									<c:forEach  begin="1" end="5">
-										<span class="glyphicon glyphicon-star"></span>
-									</c:forEach>
-								</div>
-								<div class="greenStars js-greenStars">
-									<c:forEach  begin="1" end="5">
-										<span class="glyphicon glyphicon-star active"></span>
-									</c:forEach>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="carousel__item--name">
-						<div class="commentContent">
-							<div class="limited-height">
-								<p><spring:theme code="reviews.comment"/>&nbsp;${fn:escapeXml(review.comment)}</p>
-							</div>
-							<c:if test="${fn:length(review.comment) > 55}">
-								<button class="button_show_more js-show-more" data-customer="${fn:escapeXml(review.principal.name)}" data-comment="${fn:escapeXml(review.comment)}" data-title="Comment">Read more...</button>
-							</c:if>
-
-						</div>
-					</div>
-					<div class="dateReview  js-rating-add">
-						Published on <fmt:formatDate value="${review.date}" pattern="dd/MM/yyyy" />
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
+	<div id="reviews-container"></div>
 </div>
 
-
-<div id="show_more">
-	<h4 id="customer_content"></h4>
-	<p id="comment_content"></p>
-</div>

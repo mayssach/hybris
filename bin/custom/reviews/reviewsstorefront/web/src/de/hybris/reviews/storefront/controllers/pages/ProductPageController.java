@@ -281,7 +281,7 @@ public class ProductPageController extends AbstractPageController
 	@RequestMapping(value = PRODUCT_CODE_PATH_VARIABLE_PATTERN + "/reviewhtml/"
 			+ REVIEWS_PATH_VARIABLE_PATTERN, method = RequestMethod.GET)
 	public String reviewHtml(@PathVariable("productCode") final String encodedProductCode,
-			@PathVariable("numberOfReviews") final String numberOfReviews, final Model model, final HttpServletRequest request)
+							 @PathVariable("numberOfReviews") final String numberOfReviews, final Model model, final HttpServletRequest request)
 	{
 		final String productCode = decodeWithScheme(encodedProductCode, UTF_8);
 		final ProductModel productModel = productService.getProductForCode(productCode);
@@ -289,15 +289,34 @@ public class ProductPageController extends AbstractPageController
 		final ProductData productData = productFacade.getProductForCodeAndOptions(productCode,
 				Arrays.asList(ProductOption.BASIC, ProductOption.REVIEW));
 
-
-		reviews = productFacade.getReviews(productCode,null);
-
+		if ("all".equals(numberOfReviews))
+		{
+			reviews = productFacade.getReviews(productCode);
+		}
+		else
+		{
+			final int reviewCount = Math.min(Integer.parseInt(numberOfReviews),
+					productData.getNumberOfReviews() == null ? 0 : productData.getNumberOfReviews().intValue());
+			reviews = productFacade.getReviews(productCode, Integer.valueOf(reviewCount));
+		}
 
 		getRequestContextData(request).setProduct(productModel);
 		model.addAttribute("reviews", reviews);
 		model.addAttribute("reviewsTotal", productData.getNumberOfReviews());
 		model.addAttribute(new ReviewForm());
+
 		return ControllerConstants.Views.Fragments.Product.ReviewsTab;
+	}
+
+	@RequestMapping(value = PRODUCT_CODE_PATH_VARIABLE_PATTERN + "/reviewjson", method = RequestMethod.GET)
+	public String reviewJson(@PathVariable("productCode") final String encodedProductCode, final Model model,final HttpServletRequest request)
+	{
+		final String productCode = decodeWithScheme(encodedProductCode, UTF_8);
+		final List<ReviewData> reviews = productFacade.getReviews(productCode);
+		model.addAttribute("reviews", reviews);
+		model.addAttribute("product",productFacade.getProductForCodeAndOptions(productCode,Arrays.asList(ProductOption.BASIC, ProductOption.REVIEW)));
+		return ControllerConstants.Views.Pages.Product.GetReviews;
+
 	}
 
 	@RequestMapping(value = PRODUCT_CODE_PATH_VARIABLE_PATTERN + "/writeReview", method = RequestMethod.GET)
