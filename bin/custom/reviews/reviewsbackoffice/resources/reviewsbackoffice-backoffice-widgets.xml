@@ -9,7 +9,7 @@
 		<widget id="excelReviewImportFlowContextCreator" widgetDefinitionId="com.hybris.cockpitng.widgets.common.propextractor" slotId="cockpitWidgetChildrenInvisible" template="false">
 			<setting key="expression" type="String">{
 				TYPE_CODE:#root
-				, configurableFlowConfigCtx:'excel-import-wizard'
+				, configurableFlowConfigCtx:'excel-import-wizardReview'
 				}</setting>
 			<setting key="socketDataType_$T" type="String">java.util.Map</setting>
 			<virtual-sockets/>
@@ -32,26 +32,17 @@
 		</widget>
 	</widget-extension>
 	<widget-connection
-			sourceWidgetId="explorerTree"
-			outputId="nodeSelected"
-			targetWidgetId="my_wizard_conditionevaluator"
-			inputId="input"
+			sourceWidgetId="explorerTree" outputId="nodeSelected" targetWidgetId="my_wizard_conditionevaluator" inputId="input"
 	/>
 	<widget-connection
-			sourceWidgetId="my_wizard_conditionevaluator"
-			outputId="true"
-			targetWidgetId="my_wizard_propertyextractor"
-			inputId="genericInput"
+			sourceWidgetId="my_wizard_conditionevaluator" outputId="true" targetWidgetId="my_wizard_propertyextractor" inputId="genericInput"
 	/>
 	<widget-connection
-			sourceWidgetId="my_wizard_propertyextractor"
-			outputId="genericOutput"
-			targetWidgetId="configurableFlow"
-			inputId="contextType"
+			sourceWidgetId="my_wizard_propertyextractor" outputId="genericOutput" targetWidgetId="configurableFlow" inputId="contextType"
 	/>
 
 
-	<widget-connection sourceWidgetId="STUB_com.hybris.cockpitng.listview.action.import.csv" outputId="typeCode" targetWidgetId="excelReviewImportFlowContextCreator" inputId="genericInput"/>
+	<widget-connection sourceWidgetId="STUB_com.hybris.cockpitng.listview.action.import.excelReview" outputId="typeCode" targetWidgetId="excelReviewImportFlowContextCreator" inputId="genericInput"/>
 	<widget-connection sourceWidgetId="excelReviewImportFlowContextCreator" outputId="genericOutput" targetWidgetId="configurableFlow" inputId="context"/>
 
 </widgets>

@@ -12,10 +12,13 @@
   		<property name="name" value="labels"/>
   	</bean>
 
-	<alias name="defaultCsvImportHandler" alias="csvImportHandler"/>
-	<bean name="defaultCsvImportHandler" class="de.hybris.reviews.backoffice.actions.CsvImportHandler" parent="abstractExcelImportHandler">
+	<alias name="defaultExcelReviewsImportHandler" alias="excelReviewsImportHandler"/>
+	<bean name="defaultExcelReviewsImportHandler" class="de.hybris.reviews.backoffice.actions.ExcelReviewsImportHandler" parent="abstractExcelImportHandler">
 		<property name="modelService" ref="modelService"/>
 		<property name="customCustomerReviewService" ref="customerReviewService"/>
 
 	</bean>
+
+	<alias name="defaultExcelReviewImportWizardForm" alias="excelReviewImportWizardForm"/>
+	<bean id="defaultExcelReviewImportWizardForm" class="de.hybris.reviews.backoffice.form.ExcelReviewImportWizardForm" scope="prototype"/>
 </beans>
