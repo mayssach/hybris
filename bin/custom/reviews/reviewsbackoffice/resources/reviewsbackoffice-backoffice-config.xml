@@ -384,19 +384,6 @@
 							   visible="excelForm.excelFile!=null"/>
 				</wz:navigation>
 			</wz:step>
-			<!--<wz:step id="step2" label="">
-				<wz:content id="step2.content">
-					<wz:custom-view lang="zul">
-						<wz:renderer spring-bean="excelImportValidationResultRenderer"/>
-					</wz:custom-view>
-				</wz:content>
-				<wz:navigation id="step2.navigation">
-					<wz:back/>
-					<wz:cancel/>
-					<wz:custom label="excel.import.ignore.wizard.button.label"
-							   handler="excelWithoutValidationImportHandler" visible="!excelHasValidationErrors"/>
-				</wz:navigation>
-			</wz:step>-->
 		</wz:flow>
 	</context>
 
